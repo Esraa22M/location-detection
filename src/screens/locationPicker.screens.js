@@ -2,7 +2,7 @@ import { View , StyleSheet} from "react-native";
 import { LocationInfo } from "../components/locationInfo.components";
 import MapView, { Marker } from "react-native-maps";
 export const LocationPicker = ({ mapRef, location }) => {
-	// When permission granted and location available: show map centered and marker that moves in real-time
+
 	const initialRegion = {
 		latitude: location ? location.latitude : 37.78825,
 		longitude: location ? location.longitude : -122.4324,

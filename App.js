@@ -72,7 +72,7 @@ function App() {
 		})();
 
 		return () => {
-			// cleanup subscription on unmount
+			// cleanup subscription 
 			if (locationSubscriptionRef.current) {
 				locationSubscriptionRef.current.remove();
 			}
@@ -80,7 +80,7 @@ function App() {
 	}, []);
 
 	if (loading) {
-		return <AppLoader message={"				Waiting for location & permissions..."} />;
+		return <AppLoader message={"Waiting for location & permissions..."} />;
 	}
 
 	if (permissionStatus !== "granted") {
