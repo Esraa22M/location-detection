@@ -29,7 +29,7 @@ function App() {
 					latitude: loc.coords.latitude,
 					longitude: loc.coords.longitude,
 				};
-				setLocation(coords);
+				setLocation({ ...coords });
 				setLoading(false);
 
 				const subscription = await Location.watchPositionAsync(

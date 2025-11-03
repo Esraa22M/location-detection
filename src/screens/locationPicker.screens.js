@@ -41,6 +41,5 @@ export const LocationPicker = ({ mapRef, location }) => {
 const styles = StyleSheet.create({
 	container: { flex: 1 },
 	map: { flex: 1 },
-
 	small: { fontSize: 12, color: "gray", marginTop: 4 },
 });
