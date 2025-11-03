@@ -1,22 +1,18 @@
-// App.js
 import React, { useEffect, useState, useRef } from "react";
-
 import * as Location from "expo-location";
-
 import { AppLoader } from "./src/components/appLoader.components";
 import { PermissionRequest } from "./src/components/permissionRequest.components";
 import { LocationPicker } from "./src/screens/locationPicker.screens";
 
 function App() {
-	const [permissionStatus, setPermissionStatus] = useState(null); // 'granted' | 'denied' | null
+	const [permissionStatus, setPermissionStatus] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [location, setLocation] = useState(null); // { latitude, longitude }
+	const [location, setLocation] = useState(null);
 	const mapRef = useRef(null);
 	const locationSubscriptionRef = useRef(null);
 
 	useEffect(() => {
 		(async () => {
-			// Ask for foreground permission on load
 			const { status } = await Location.requestForegroundPermissionsAsync();
 			setPermissionStatus(status);
 			if (status !== "granted") {
@@ -36,10 +32,8 @@ function App() {
 				setLocation(coords);
 				setLoading(false);
 
-				// Start watching position for live updates
 				const subscription = await Location.watchPositionAsync(
 					{
-						// Adjust these to control frequency/accuracy
 						accuracy: Location.Accuracy.Highest,
 						timeInterval: 2000, // receive updates every 2 seconds (if available)
 						distanceInterval: 1, // receive updates when moved by 1 meter (if available)
@@ -51,7 +45,7 @@ function App() {
 						};
 						setLocation(newCoords);
 
-						// Move map to new location (animate)
+						// Move map to new location
 						if (mapRef.current) {
 							mapRef.current.animateToRegion(
 								{
@@ -72,7 +66,6 @@ function App() {
 		})();
 
 		return () => {
-			// cleanup subscription 
 			if (locationSubscriptionRef.current) {
 				locationSubscriptionRef.current.remove();
 			}
@@ -87,8 +80,6 @@ function App() {
 		// requirement: If permission is denied, show a text message
 		return <PermissionRequest />;
 	}
-
-
 
 	return <LocationPicker mapRef={mapRef} location={location} />;
 }
